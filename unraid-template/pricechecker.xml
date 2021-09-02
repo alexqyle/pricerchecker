@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>pricechecker</Name>
+  <Repository>shadow999/pricechecker:latest</Repository>
+  <Registry/>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support/>
+  <Project/>
+  <Overview/>
+  <Category/>
+  <WebUI/>
+  <TemplateURL/>
+  <Icon>https://cdn.iconscout.com/icon/premium/png-256-thumb/bar-line-graph-772579.png</Icon>
+  <ExtraParams/>
+  <PostArgs/>
+  <CPUset/>
+  <DonateText/>
+  <DonateLink/>
+  <Description/>
+  <Networking>
+    <Mode>bridge</Mode>
+    <Publish/>
+  </Networking>
+  <Data>
+    <Volume>
+      <HostDir></HostDir>
+      <ContainerDir>/config/config.yaml</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+    <Volume>
+      <HostDir></HostDir>
+      <ContainerDir>/config/google_service_account.json</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+  </Data>
+  <Environment/>
+  <Labels/>
+  <Config Name="Config File" Target="/config/config.yaml" Default="" Mode="rw" Description="Path - Config File" Type="Path" Display="always" Required="false" Mask="false"></Config>
+  <Config Name="Google Service Account Key" Target="/config/google_service_account.json" Default="" Mode="rw" Description="Path - Google Service Account Key" Type="Path" Display="always" Required="false" Mask="false"></Config>
+</Container>

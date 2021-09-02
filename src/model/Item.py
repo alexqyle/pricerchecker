@@ -1,14 +1,13 @@
 import logging
 import requests
 import time
+import traceback
 from pyquery import PyQuery
+from retry import retry
 from model.SpecialTweak import SpecialTweak, default_headers
 from model.PriceSelector import PriceSelector
 
 logger = logging.getLogger(__name__)
-
-TOTAO_RETRY_COUNT: int = 5
-RETRY_DELAY_SECOND: float = 5
 
 class Item(object):
     def __init__(self, 
@@ -37,16 +36,15 @@ class Item(object):
         if self.special_tweak:
             headers = default_headers | self.special_tweak.headers
             cookies = self.special_tweak.cookies
-        retry_count = 0
-        while retry_count < TOTAO_RETRY_COUNT:
-            try:
-                req = requests.get(self.url, headers=headers, cookies=cookies, timeout=20)
-                html = req.text
-                return self.price_selector.scrape_price(PyQuery(html))
-            except Exception:
-                retry_count += 1
-                if retry_count < TOTAO_RETRY_COUNT:
-                    logger.warn(f"Unable to get price for '{self.name}'. Will retry in {RETRY_DELAY_SECOND} seconds")
-                    time.sleep(RETRY_DELAY_SECOND)
-        logger.error(f"Unable to get price for '{self.name}'. Will return None")
-        return None
+        try:
+            return self.__fetch_price(headers, cookies)
+        except Exception as error:
+            logger.error(f"Unable to get price for '{self.name}'. Error: {error}")
+            traceback.print_exc()
+            return None
+
+    @retry((Exception), tries=5, delay=5)
+    def __fetch_price(self, headers: dict[str, str], cookies: dict[str, str]) -> float:
+        req = requests.get(self.url, headers=headers, cookies=cookies, timeout=20)
+        html = req.text
+        return self.price_selector.scrape_price(PyQuery(html))

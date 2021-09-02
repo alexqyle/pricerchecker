@@ -5,3 +5,4 @@ gspread
 pyquery
 pyyaml
 requests
+retry 

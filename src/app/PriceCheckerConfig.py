@@ -58,7 +58,7 @@ class PriceCheckerConfig(object):
             type = data_exporter['type']
             if type == 'google_sheet':
                 exporter = GoogleSheetExporter(data_exporter['google_service_account_key_file'], data_exporter['spreadsheet_id'])
-            if type == 'csv':
+            elif type == 'csv':
                 exporter = CsvExporter(Path(data_exporter['csv_file_directory']))
             else:
                 message = f"Unsupported data exporter type: {type}"

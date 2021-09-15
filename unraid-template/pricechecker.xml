@@ -35,9 +35,15 @@
       <ContainerDir>/config/google_service_account.json</ContainerDir>
       <Mode>rw</Mode>
     </Volume>
+    <Volume>
+      <HostDir></HostDir>
+      <ContainerDir>/config/exported_csv</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
   </Data>
   <Environment/>
   <Labels/>
   <Config Name="Config File" Target="/config/config.yaml" Default="" Mode="rw" Description="Path - Config File" Type="Path" Display="always" Required="false" Mask="false"></Config>
   <Config Name="Google Service Account Key" Target="/config/google_service_account.json" Default="" Mode="rw" Description="Path - Google Service Account Key" Type="Path" Display="always" Required="false" Mask="false"></Config>
+  <Config Name="CSV export directory" Target="/config/exported_csv" Default="" Mode="rw" Description="Path - CSV export directory" Type="Path" Display="always" Required="false" Mask="false"></Config>
 </Container>

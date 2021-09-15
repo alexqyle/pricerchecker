@@ -59,9 +59,13 @@ item_groups:
         url: https://www.site3.com/product_2_1
         price_selector: site3_selector
         special_tweak: site3_tweak
-data_exporters:  # only support google sheet for now
+data_exporters:
+  # Google Sheet exporter
   - type: google_sheet
     google_service_account_key_file: /path/to/server_account_key.json
     spreadsheet_id: google_spreadsheet_id
+  # CSV file exporter
+  - type: csv
+    csv_file_directory: /path/to/directory/saving/all/csv/files
 
 ```

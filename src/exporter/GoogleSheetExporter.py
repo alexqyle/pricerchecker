@@ -20,6 +20,7 @@ SCOPES = [
 
 class GoogleSheetExporter(DataExporter):
     def __init__(self, service_account_key_file: str, spreadsheet_id: str):
+        super().__init__()
         if not os.path.isfile(service_account_key_file):
             message = f"Service Account key file does not exist: {service_account_key_file}"
             logger.error(message)
@@ -104,7 +105,7 @@ class GoogleSheetExporter(DataExporter):
         new_labels = []
         col_number = self.__get_col_count(sheet)
         if col_number == 0:
-            sheet.update_cell(1, 1, '-')
+            sheet.update_cell(1, 1, 'Date')
             col_number += 1
         col_start = col_number + 1
         col_number = col_start
